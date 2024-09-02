@@ -1,4 +1,10 @@
-public class Usuario (String login, String senha, String nome, String cpf, String email, Boolean admin){
+public class Usuario {
+    private String login;
+    private String senha;
+    private String nome;
+    private String cpf;
+    private String email;
+    private boolean admin;
     public Usuario(String login, String senha, String nome, String cpf, String email, Boolean admin){
         this.login = login;
         this.senha = senha;
@@ -26,6 +32,26 @@ public class Usuario (String login, String senha, String nome, String cpf, Strin
 
     public Boolean isAdmin(){
         return admin;
+    }
+
+    public boolean login(String login, String senha) {
+        return this.login.equals(login) && this.senha.equals(senha);
+    }
+
+    public String setSenha(String senha){
+        this.senha = senha;
+    }
+
+    public String setNome(String nome){
+        this.nome = nome;
+    }
+
+    public String setCpf(String cpf){
+        this.cpf = cpf;
+    }
+
+    public String setEmail(String email){
+        this.email = email;
     }
 
 
