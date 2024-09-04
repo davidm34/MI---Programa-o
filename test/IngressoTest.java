@@ -25,7 +25,7 @@ public class IngressoTest {
         assertEquals(100.0, ingresso.getPreco(), 0.0001);
         assertEquals("A1", ingresso.getAssento());
         assertTrue(ingresso.isAtivo());
-    }3
+    }
 
     @Test
     public void testCancelarIngresso() {
