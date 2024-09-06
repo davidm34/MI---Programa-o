@@ -1,3 +1,5 @@
+package vendaingressos;
+
 import java.util.Date;
 
 public class Ingresso {
@@ -7,7 +9,7 @@ public class Ingresso {
 
     Boolean ativo = true;
 
-    public Ingresso(Evento evento,Float preco, String assento){
+    public Ingresso(Evento evento, Float preco, String assento){
         this.evento = evento;
         this.preco = preco;
         this.assento = assento;

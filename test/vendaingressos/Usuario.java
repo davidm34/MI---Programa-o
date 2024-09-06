@@ -1,10 +1,12 @@
+package vendaingressos;
+
 public class Usuario {
     private String login;
     private String senha;
     private String nome;
     private String cpf;
     private String email;
-    private boolean admin;
+    private Boolean admin;
     public Usuario(String login, String senha, String nome, String cpf, String email, Boolean admin){
         this.login = login;
         this.senha = senha;
