@@ -1,5 +1,9 @@
 package vendaingressos;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 public class Usuario {
     private String login;
     private String senha;
@@ -7,6 +11,8 @@ public class Usuario {
     private String cpf;
     private String email;
     private Boolean admin;
+
+    List<Ingresso> ingressos = new ArrayList<>();
     public Usuario(String login, String senha, String nome, String cpf, String email, Boolean admin){
         this.login = login;
         this.senha = senha;
@@ -41,21 +47,44 @@ public class Usuario {
     }
 
     public String setSenha(String senha){
-        this.senha = senha;
+        return this.senha = senha;
     }
 
     public String setNome(String nome){
-        this.nome = nome;
+        return this.nome = nome;
     }
 
     public String setCpf(String cpf){
-        this.cpf = cpf;
+        return this.cpf = cpf;
     }
 
     public String setEmail(String email){
-        this.email = email;
+        return this.email = email;
     }
 
+    public void addIngresso(Ingresso ingresso){
+        ingressos.add(ingresso);
+    }
 
+    public void removeIngresso(Ingresso ingresso){
+        ingressos.remove(ingresso);
+    }
+
+    public List<Ingresso> getIngressos(){
+        return ingressos;
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Usuario usuario = (Usuario) o;
+        return Objects.equals(login, usuario.login) &&
+                Objects.equals(cpf, usuario.cpf) &&
+                Objects.equals(email, usuario.email);
+    }
+
+    public int hashCode() {
+        return Objects.hash(login, cpf, email);
+    }
 
 }

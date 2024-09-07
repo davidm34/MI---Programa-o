@@ -1,14 +1,13 @@
 package vendaingressos;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class Evento {
     String nome;
     String descricao;
     Date data;
 
-    List<String> assentos;
+    List<String> assentos = new ArrayList<>();
 
     public Evento(String nome, String descricao, Date data){
         this.nome = nome;
@@ -37,16 +36,25 @@ public class Evento {
     }
 
     public void removerAssento(String assento){
-        for(String iterator : assentos){
-            if(iterator == assento){
-                assentos.remove(iterator);
-            }
-        }
+        assentos.removeIf(c -> c.equals(assento));
     }
 
     Date data_atual = new Date();
 
     public boolean isAtivo(){
         return data.after(data_atual);
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Evento evento = (Evento) o;
+        return Objects.equals(nome, evento.nome) &&
+                Objects.equals(descricao, evento.descricao) &&
+                Objects.equals(data, evento.data);
+    }
+
+    public int hashCode() {
+        return Objects.hash(nome, descricao, data);
     }
 }
