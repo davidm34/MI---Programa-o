@@ -11,8 +11,8 @@ public class Controller {
         eventos = new ArrayList<>();
     }
 
-    public Usuario cadastrarUsuario(String username, String password, String nome, String cpf, String email, boolean isAdmin) {
-        Usuario usuario = new Usuario(username, password, nome, cpf, email, isAdmin);
+    public Usuario cadastrarUsuario(String login, String senha, String nome, String cpf, String email, boolean isAdmin) {
+        Usuario usuario = new Usuario(login, senha, nome, cpf, email, isAdmin);
         usuarios.add(usuario);
         return usuario;
     }

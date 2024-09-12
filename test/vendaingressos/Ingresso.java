@@ -57,7 +57,6 @@ public class Ingresso {
                 Objects.equals(assento, ingresso.assento);
     }
 
-    @Override
     public int hashCode() {
         return Objects.hash(evento, preco, assento);
     }
