@@ -1,21 +1,18 @@
-
-import java.util.Date;
-import java.util.List;
-import java.util.Calendar;
+import org.junit.Test;
 import vendaingressos.Evento;
 
-import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 public class EventoTest {
 
     @Test
     public void testCriarEvento() {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(2024, Calendar.SEPTEMBER, 10);
+        calendar.set(2025, Calendar.SEPTEMBER, 10);
         Date data = calendar.getTime();
 
         Evento evento = new Evento("Show de Rock", "Banda XYZ", data);
@@ -29,7 +26,7 @@ public class EventoTest {
     @Test
     public void testAdicionarAssento() {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(2024, Calendar.SEPTEMBER, 10);
+        calendar.set(2025, Calendar.SEPTEMBER, 10);
         Date data = calendar.getTime();
 
         Evento evento = new Evento("Show de Rock", "Banda XYZ", data);
@@ -42,7 +39,7 @@ public class EventoTest {
     @Test
     public void testRemoverAssento() {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(2024, Calendar.SEPTEMBER, 10);
+        calendar.set(2025, Calendar.SEPTEMBER, 10);
         Date data = calendar.getTime();
 
         Evento evento = new Evento("Show de Rock", "Banda XYZ", data);
@@ -56,7 +53,7 @@ public class EventoTest {
     @Test
     public void testEventoAtivo() {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(2024, Calendar.SEPTEMBER, 10);
+        calendar.set(2025, Calendar.SEPTEMBER, 10);
         Date data = calendar.getTime();
 
         Evento evento = new Evento("Show de Rock", "Banda XYZ", data);

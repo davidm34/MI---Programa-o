@@ -10,16 +10,16 @@ public class Usuario {
     private String nome;
     private String cpf;
     private String email;
-    private Boolean admin;
+    private Boolean isadmin;
 
     List<Ingresso> ingressos = new ArrayList<>();
-    public Usuario(String login, String senha, String nome, String cpf, String email, Boolean admin){
+    public Usuario(String login, String senha, String nome, String cpf, String email, Boolean isadmin){
         this.login = login;
         this.senha = senha;
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
-        this.admin = admin;
+        this.isadmin = isadmin;
     }
 
     public String getLogin(){
@@ -39,7 +39,7 @@ public class Usuario {
     }
 
     public Boolean isAdmin(){
-        return admin;
+        return isadmin;
     }
 
     public boolean login(String login, String senha) {
@@ -74,13 +74,15 @@ public class Usuario {
         return ingressos;
     }
 
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Usuario usuario = (Usuario) o;
-        return Objects.equals(login, usuario.login) &&
-                Objects.equals(cpf, usuario.cpf) &&
-                Objects.equals(email, usuario.email);
+    public boolean equals(Object objeto) {
+        if (this == objeto){
+            return true;
+        }
+        if (objeto == null || getClass() != objeto.getClass()) {
+            return false;
+        }
+        Usuario usuario = (Usuario) objeto;
+        return Objects.equals(login, usuario.login) && Objects.equals(cpf, usuario.cpf) && Objects.equals(email, usuario.email);
     }
 
     public int hashCode() {

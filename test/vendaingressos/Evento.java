@@ -45,13 +45,15 @@ public class Evento {
         return data.after(data_atual);
     }
 
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Evento evento = (Evento) o;
-        return Objects.equals(nome, evento.nome) &&
-                Objects.equals(descricao, evento.descricao) &&
-                Objects.equals(data, evento.data);
+    public boolean equals(Object objeto) {
+        if (this == objeto) {
+            return true;
+        }
+        if (objeto == null || getClass() != objeto.getClass()) {
+            return false;
+        }
+        Evento evento = (Evento) objeto;
+        return Objects.equals(nome, evento.nome) && Objects.equals(descricao, evento.descricao) && Objects.equals(data, evento.data);
     }
 
     public int hashCode() {

@@ -48,13 +48,15 @@ public class Ingresso {
         return true;
     }
 
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Ingresso ingresso = (Ingresso) o;
-        return Double.compare(ingresso.preco, preco) == 0 &&
-                Objects.equals(evento, ingresso.evento) &&
-                Objects.equals(assento, ingresso.assento);
+    public boolean equals(Object objeto) {
+        if (this == objeto) {
+            return true;
+        }
+        if (objeto == null || getClass() != objeto.getClass()) {
+            return false;
+        }
+        Ingresso ingresso = (Ingresso) objeto;
+        return Double.compare(ingresso.preco, preco) == 0 && Objects.equals(evento, ingresso.evento) && Objects.equals(assento, ingresso.assento);
     }
 
     public int hashCode() {
