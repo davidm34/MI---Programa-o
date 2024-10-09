@@ -1,10 +1,15 @@
 package vendaingressos;
 
+import com.google.gson.Gson;
+
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class Controller {
     private List<Usuario> usuarios;
     private List<Evento> eventos;
+
 
     public Controller() {
         usuarios = new ArrayList<>();
@@ -17,6 +22,7 @@ public class Controller {
         return usuario;
     }
 
+    // Adicionado a classe comentario como paramêtro
     public Evento cadastrarEvento(Usuario admin, String nome, String descricao, Date data) {
         if (!admin.isAdmin()) {
             throw new SecurityException("Somente administradores podem cadastrar eventos.");
@@ -71,4 +77,5 @@ public class Controller {
         }
         return null;
     }
+
 }

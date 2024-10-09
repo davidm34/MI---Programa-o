@@ -1,13 +1,23 @@
 package vendaingressos;
 
 import java.util.*;
+import java.io.FileReader;
 
 public class Evento {
     String nome;
     String descricao;
     Date data;
 
+    Comentario comentarios;
+
     List<String> assentos = new ArrayList<>();
+
+    public Evento(String nome, String descricao, Date data, Comentario comentarios){
+        this.nome = nome;
+        this.descricao = descricao;
+        this.data = data;
+        this.comentarios = comentarios;
+    }
 
     public Evento(String nome, String descricao, Date data){
         this.nome = nome;

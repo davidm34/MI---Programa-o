@@ -4,6 +4,7 @@ import vendaingressos.Evento;
 import vendaingressos.Ingresso;
 import vendaingressos.Usuario;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -125,4 +126,5 @@ public class ControllerTest {
 
         assertEquals(1, ingressos.size());
     }
+
 }
