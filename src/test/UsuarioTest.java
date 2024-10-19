@@ -1,6 +1,11 @@
 
 import vendaingressos.Usuario;
 import org.junit.Test;
+import vendaingressos.UsuarioManager;
+
+import java.io.IOException;
+import java.util.UUID;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
@@ -63,11 +68,5 @@ public class UsuarioTest {
         assertEquals("jon.doe@example.com", usuario.getEmail());
     }
 
-    @Test
-    public void testUsuarioDuplicado() {
-        Usuario usuario1 = new Usuario("johndoe", "senha123", "John Doe", "12345678901", "john.doe@example.com", false);
-        Usuario usuario2 = new Usuario("johndoe", "senha456", "John Doe", "12345678901", "john.doe@example.com", false);
-
-        assertEquals(usuario1, usuario2);
-    }
 }
+

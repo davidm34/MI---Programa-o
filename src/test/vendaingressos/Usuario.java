@@ -1,9 +1,7 @@
 package vendaingressos;
 
-import com.google.gson.Gson;
-
-import java.io.FileWriter;
 import java.io.IOException;
+import java.util.UUID;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -15,8 +13,18 @@ public class Usuario {
     private String cpf;
     private String email;
     private Boolean isadmin;
+    private UUID uuid;
 
     List<Ingresso> ingressos = new ArrayList<>();
+    public Usuario(String login, String senha, String nome, String cpf, String email, Boolean isadmin, UUID uuid){
+        this.login = login;
+        this.senha = senha;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.email = email;
+        this.isadmin = isadmin;
+        this.uuid = uuid;
+    }
     public Usuario(String login, String senha, String nome, String cpf, String email, Boolean isadmin){
         this.login = login;
         this.senha = senha;
@@ -41,6 +49,8 @@ public class Usuario {
     public String getEmail(){
         return email;
     }
+
+    public String getSenha(){ return senha; }
 
     public Boolean isAdmin(){
         return isadmin;

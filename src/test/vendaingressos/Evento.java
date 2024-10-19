@@ -1,18 +1,17 @@
 package vendaingressos;
 
 import java.util.*;
-import java.io.FileReader;
 
 public class Evento {
-    String nome;
-    String descricao;
-    Date data;
+    private String nome;
+    private String descricao;
+    protected Date data;
 
-    Comentario comentarios;
+    Comment comentarios;
 
     List<String> assentos = new ArrayList<>();
 
-    public Evento(String nome, String descricao, Date data, Comentario comentarios){
+    public Evento(String nome, String descricao, Date data, Comment comentarios){
         this.nome = nome;
         this.descricao = descricao;
         this.data = data;
@@ -35,6 +34,14 @@ public class Evento {
 
     public Date getData(){
         return data;
+    }
+
+    public List<Integer> getAvaliacao(){
+        return comentarios.avaliacoes;
+    }
+
+    public List<String> getComentarios(){
+        return comentarios.comentarios;
     }
 
     public void adicionarAssento(String assento){

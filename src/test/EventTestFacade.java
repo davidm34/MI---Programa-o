@@ -1,0 +1,67 @@
+import vendaingressos.Evento;
+
+import java.util.List;
+import java.util.Date;
+
+public class EventTestFacade {
+
+    public EventTestFacade() {
+        
+    }
+
+    public void removeSeatByEventId(String seat, String id){
+       
+    }
+
+    public void addSeatByEventId(String seat, String id){
+     
+    }
+
+    public String create(String loginAdmin, String name, String description, Date date){
+     
+    }
+
+    public Evento getById(String id){
+
+    }
+
+    public String getNameByEventId(String id){
+    
+    }
+
+    public List<String> getSeatsByEventId(String id){
+
+    }
+
+    public String getDescriptionByEventId(String id){
+      
+    }
+
+    public int getYearByEventId(String id){
+      
+    }
+
+    public int getMonthByEventId(String id){
+      
+    }
+
+    public int getDayByEventId(String id){
+     
+    }
+
+    public boolean getIsActiveByEventId(String id){
+        
+    }
+
+    public String addEventInDataBaseWithPastDate(String name, String description, Date date){
+        
+    }
+
+    public int getCommentQuantityByEventId(String id){
+
+    }
+
+    public void deleteAllEvents(){
+     
+    }
+}

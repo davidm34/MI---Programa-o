@@ -5,19 +5,24 @@ import com.google.gson.Gson;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
-public class Comentario {
+public class Comment {
 
-    List<Integer> avaliacoes;
+    public List<Integer> avaliacoes;
     public List<String> comentarios;
 
-    public Comentario(List<Integer> avaliacoes, List<String> comentarios){
+    public Comment(List<Integer> avaliacoes, List<String> comentarios){
         this.avaliacoes = avaliacoes;
         this.comentarios = comentarios;
+    }
+
+    public List<Integer> getAvaliacao(){
+        return avaliacoes;
+    }
+
+    public List<String> getComentarios(){
+        return comentarios;
     }
 
     public void escreverComentario(String comentario){
@@ -29,18 +34,18 @@ public class Comentario {
     }
 
 
-    public void salvar(String path, Comentario comentario) throws IOException {
+    public void salvar(String path, Comment comment) throws IOException {
         Gson gson = new Gson();
 
         try (FileWriter writer = new FileWriter(path + "\\comentario.json")) {
-            gson.toJson(comentario, writer);
+            gson.toJson(comment, writer);
         }
     }
 
-    public Comentario carregar(String path) throws IOException {
+    public Comment carregar(String path) throws IOException {
         Gson gson = new Gson();
         try (FileReader reader = new FileReader(path + "\\comentario.json")) {
-            return gson.fromJson(reader, Comentario.class);
+            return gson.fromJson(reader, Comment.class);
         }
     }
 
