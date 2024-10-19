@@ -24,7 +24,7 @@ public class CommentTest {
     }
 
     @After
-    public void tearDown() {
+    public void tearDown() throws IOException {
         userTestFacade.deleteAllUsers();
         eventTestFacadeFacade.deleteAllEvents();
         ticketTestFacade.deleteAllTickets();

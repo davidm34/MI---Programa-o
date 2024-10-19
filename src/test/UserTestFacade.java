@@ -25,16 +25,34 @@ public class UserTestFacade {
         return null;
     }
 
-    public void setNameByUserEmail(String name, String email) {
-    
+    public void setNameByUserEmail(String name, String email) throws IOException {
+        UsuarioManager usuarioManager = new UsuarioManager();
+        List<Usuario> usuarios = usuarioManager.lerConteudoArquivo();
+        for (Usuario usuario : usuarios) {
+            if (usuario.getEmail().equals(email)) {
+                usuario.setNome(name);
+            }
+        }
     }
 
-    public void setPasswordByUserEmail(String password, String email) {
-       
+    public void setPasswordByUserEmail(String password, String email) throws IOException {
+        UsuarioManager usuarioManager = new UsuarioManager();
+        List<Usuario> usuarios = usuarioManager.lerConteudoArquivo();
+        for (Usuario usuario : usuarios) {
+            if (usuario.getEmail().equals(email)) {
+                usuario.setNome(password);
+            }
+        }
     }
 
-    public void setEmailByUserEmail(String newEmail, String email) {
-       
+    public void setEmailByUserEmail(String newEmail, String email) throws IOException {
+        UsuarioManager usuarioManager = new UsuarioManager();
+        List<Usuario> usuarios = usuarioManager.lerConteudoArquivo();
+        for (Usuario usuario : usuarios) {
+            if (usuario.getEmail().equals(email)) {
+                usuario.setNome(email);
+            }
+        }
     }
 
     public String getNameByUserEmail(String email) throws IOException {
@@ -111,8 +129,9 @@ public class UserTestFacade {
         return usuarios.size();
     }
 
-    public void deleteAllUsers(){
-
+    public void deleteAllUsers() throws IOException {
+        UsuarioManager usuarioManager = new UsuarioManager();
+        usuarioManager.limparArquivoJson();
     }
 
     public void deleteByUserEmail(String email) throws IOException {

@@ -14,7 +14,7 @@ public class UserTest {
     }
 
     @After
-    public void tearDown() {
+    public void tearDown() throws IOException {
         userFacade.deleteAllUsers();
     }
 

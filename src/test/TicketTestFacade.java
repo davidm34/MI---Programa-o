@@ -1,3 +1,5 @@
+import vendaingressos.Ingresso;
+
 public class TicketTestFacade {
 
     public TicketTestFacade(){
@@ -32,7 +34,7 @@ public class TicketTestFacade {
      
     }
 
-    public Ticket getById(String id){
+    public Ingresso getById(String id){
      
     }
 

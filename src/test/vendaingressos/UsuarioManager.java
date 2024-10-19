@@ -59,4 +59,11 @@ public class UsuarioManager {
             }
         }
     }
+    public void limparArquivoJson() throws IOException {
+        FileWriter fileWriter = new FileWriter("usuarios.json");
+        fileWriter.write("[]");
+        fileWriter.flush();
+        fileWriter.close();
+        listausuario.clear();
+    }
 }
