@@ -2,6 +2,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -19,13 +20,13 @@ public class EventTest {
     }
 
     @After
-    public void tearDown() {
+    public void tearDown() throws IOException {
         eventFacade.deleteAllEvents();
         userFacade.deleteAllUsers();
     }
 
     @Test
-    public void eventCreateTest() {
+    public void eventCreateTest() throws IOException {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2025, Calendar.SEPTEMBER, 10);
         String name = "Show de Rock";
@@ -42,7 +43,6 @@ public class EventTest {
         userFacade.create(login, password, nameUser, cpf, email, isAdmin);
 
         String id = eventFacade.create(login, name, description, date);
-
         assertNotNull(eventFacade.getById(id));
         assertEquals("Show de Rock", eventFacade.getNameByEventId(id));
         assertEquals("Banda", eventFacade.getDescriptionByEventId(id));
@@ -52,7 +52,7 @@ public class EventTest {
     }
 
     @Test
-    public void addSeatTest() {
+    public void addSeatTest() throws IOException {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2025, Calendar.SEPTEMBER, 10);
         String name = "Show de Rock";
@@ -77,7 +77,7 @@ public class EventTest {
     }
 
     @Test
-    public void removeSeatTest() {
+    public void removeSeatTest() throws IOException {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2025, Calendar.SEPTEMBER, 10);
         String name = "Show de Rock";
@@ -104,7 +104,7 @@ public class EventTest {
     }
 
     @Test
-    public void activeEventTest() {
+    public void activeEventTest() throws IOException {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2025, Calendar.SEPTEMBER, 10);
         String name = "Show de Rock";
@@ -125,7 +125,7 @@ public class EventTest {
     }
 
     @Test(expected = SecurityException.class)
-    public void inactiveEventTest() {
+    public void inactiveEventTest() throws IOException {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2023, Calendar.SEPTEMBER, 10);
         String name = "Show de Rock";

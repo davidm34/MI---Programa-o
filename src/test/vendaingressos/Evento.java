@@ -1,12 +1,13 @@
 package vendaingressos;
-
 import java.util.*;
 
 public class Evento {
+
+    private String id;
+    private String login;
     private String nome;
     private String descricao;
     protected Date data;
-
     Comment comentarios;
 
     List<String> assentos = new ArrayList<>();
@@ -18,15 +19,32 @@ public class Evento {
         this.comentarios = comentarios;
     }
 
+
     public Evento(String nome, String descricao, Date data){
         this.nome = nome;
         this.descricao = descricao;
         this.data = data;
     }
 
+    public Evento(String login, String nome, String descricao, Date data, String id, List<String> assentos){
+        this.login = login;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.data = data;
+        this.id = id;
+        this.assentos = assentos;
+    }
+
+    public Evento(String login, String nome, String descricao, Date data, String id){
+        this(login, nome, descricao, data, id, List.of("Nenhum assento"));
+    }
+
+    public String getId(){ return id; }
     public String getNome(){
         return nome;
     }
+
+    public String getLogin(){ return login; }
 
     public String getDescricao(){
         return descricao;
@@ -44,6 +62,16 @@ public class Evento {
         return comentarios.comentarios;
     }
 
+    public List<String> getAssentos(){ return assentos; }
+
+    public void adicionarAssentoProObjeto(String assento){
+        this.assentos.add(assento);
+    }
+
+    public void removerAssentoProObjeto(String assento){
+        this.assentos.remove(assento);
+    }
+
     public void adicionarAssento(String assento){
         assentos.add(assento);
     }
@@ -56,9 +84,8 @@ public class Evento {
         assentos.removeIf(c -> c.equals(assento));
     }
 
-    Date data_atual = new Date();
-
     public boolean isAtivo(){
+        Date data_atual = new Date();
         return data.after(data_atual);
     }
 
