@@ -8,50 +8,33 @@ import java.util.List;
 
 public class Avaliacao {
 
-    public List<Integer> avaliacoes;
-    public List<String> comentarios;
-    private String id;
-    protected String idEvento;
+    private String idUsuario;
+    private String idEvento;
 
-    public Avaliacao(List<Integer> avaliacoes, List<String> comentarios, String id, String idEvento){
+    private String idAvaliacao;
+    public int avaliacoes;
+    public String comentarios;
+
+    public Avaliacao(String idUsuario, String idEvento, String idAvaliacao, int avaliacoes, String comentarios){
+        this.idUsuario = idUsuario;
+        this.idEvento = idEvento;
+        this.idAvaliacao = idAvaliacao;
         this.avaliacoes = avaliacoes;
         this.comentarios = comentarios;
-        this.id = id;
-        this.idEvento = idEvento;
     }
 
-    public List<Integer> getAvaliacao(){
+    public int getAvaliacao(){
         return avaliacoes;
     }
 
-    public List<String> getComentarios(){
+    public String getComentarios(){
         return comentarios;
     }
 
-    public void escreverComentario(String comentario){
-        comentarios.add(comentario);
-    }
+    public String getId(){ return idAvaliacao; }
 
-    public void darAvaliacao(Integer avaliacao){
-        avaliacoes.add(avaliacao);
-    }
+    public String getIdUsuario(){ return idUsuario; }
 
-
-    public void salvar(String path, Avaliacao avaliacao) throws IOException {
-        Gson gson = new Gson();
-
-        try (FileWriter writer = new FileWriter(path + "\\comentario.json")) {
-            gson.toJson(avaliacao, writer);
-        }
-    }
-
-    public Avaliacao carregar(String path) throws IOException {
-        Gson gson = new Gson();
-        try (FileReader reader = new FileReader(path + "\\comentario.json")) {
-            return gson.fromJson(reader, Avaliacao.class);
-        }
-    }
-
-
+    public String getIdEvento(){ return idEvento; }
 
 }

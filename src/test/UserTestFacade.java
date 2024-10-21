@@ -3,6 +3,7 @@ import vendaingressos.UsuarioManager;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 public class UserTestFacade {
     // Classes para trabalhar com os testes
@@ -10,8 +11,10 @@ public class UserTestFacade {
     public UserTestFacade() {}
 
     public boolean create(String login, String password, String name, String cpf, String email, Boolean isAdmin) throws IOException {
+        UUID uuid = UUID.randomUUID();
+        String id = String.valueOf(uuid);
         UsuarioManager usuarioManager = new UsuarioManager();
-        return usuarioManager.adicionarUsuarioNoArquivo(login, password, name, cpf, email, isAdmin);
+        return usuarioManager.adicionarUsuarioNoArquivo(login, password, name, cpf, email, isAdmin, id);
     }
 
     public String getLoginByUserEmail(String email) throws IOException {
@@ -149,5 +152,16 @@ public class UserTestFacade {
             }
         }
         return false;
+    }
+
+    public String getUserIdByEmail(String email) throws IOException {
+        UsuarioManager usuarioManager = new UsuarioManager();
+        List<Usuario> usuarios = usuarioManager.lerConteudoArquivo();
+        for (Usuario usuario : usuarios) {
+            if (usuario.getEmail().equals(email)) {
+                return usuario.getId();
+            }
+        }
+        return null;
     }
 }

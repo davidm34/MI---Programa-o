@@ -1,14 +1,13 @@
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import vendaingressos.CommentTestFacade;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
 import static org.junit.Assert.*;
 
-public class AvaliacaoTest {
+public class CommentTest {
     private UserTestFacade userTestFacade;
     private EventTestFacade eventTestFacadeFacade;
     private TicketTestFacade ticketTestFacade;
@@ -59,7 +58,7 @@ public class AvaliacaoTest {
     }
 
     @Test
-    public void testCreateCommentFutureEvent() {
+    public void testCreateCommentFutureEvent() throws IOException {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2025, Calendar.SEPTEMBER, 10);
         String name = "Show de Rock";
@@ -93,7 +92,7 @@ public class AvaliacaoTest {
     }
 
     @Test
-    public void readCommentByEventTest() {
+    public void readCommentByEventTest() throws IOException {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2020, Calendar.SEPTEMBER, 10);
         Date date = calendar.getTime();
@@ -125,7 +124,7 @@ public class AvaliacaoTest {
 
 
     @Test
-    public void ratingAverageTest() {
+    public void ratingAverageTest() throws IOException {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2020, Calendar.SEPTEMBER, 10);
         Date date = calendar.getTime();
@@ -151,7 +150,7 @@ public class AvaliacaoTest {
     }
 
     @Test
-    public void deleteCommentTest() {
+    public void deleteCommentTest() throws IOException {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2020, Calendar.SEPTEMBER, 10);
         Date date = calendar.getTime();

@@ -120,6 +120,17 @@ public class EventTestFacade {
         return 0;
     }
 
+    public Date getDateByEventId(String id) throws IOException {
+        EventoManager eventoManager = new EventoManager();
+        List<Evento> eventos = eventoManager.lerConteudoArquivo();
+        for (Evento evento : eventos) {
+            if (evento.getId().equals(id)) {
+                return evento.getData();
+            }
+        }
+        return null;
+    }
+
     public boolean getIsActiveByEventId(String id) throws IOException {
         EventoManager eventoManager = new EventoManager();
         List<Evento> eventos = eventoManager.lerConteudoArquivo();
@@ -134,7 +145,7 @@ public class EventTestFacade {
     public String addEventInDataBaseWithPastDate(String name, String description, Date date) throws IOException {
         UUID uuid = UUID.randomUUID();
         String id = String.valueOf(uuid);
-        Evento evento = new Evento(loginAdmin, name, description, date, id);
+        Evento evento = new Evento(name, description, date, id);
         EventoManager eventoManager = new EventoManager();
         if(eventoManager.adicionarEventoNoArquivo(evento)){
             return id;
@@ -142,8 +153,10 @@ public class EventTestFacade {
         return null;
     }
 
-    public int getCommentQuantityByEventId(String id){
-
+    public int getCommentQuantityByEventId(String id) throws IOException {
+        AvaliacaoManager avaliacaoManager = new AvaliacaoManager();
+        List<Avaliacao> avaliacoes = avaliacaoManager.lerConteudoArquivo();
+        return avaliacoes.size();
     }
 
     public void deleteAllEvents() throws IOException {

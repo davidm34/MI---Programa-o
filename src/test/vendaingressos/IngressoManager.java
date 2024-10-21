@@ -1,13 +1,11 @@
 package vendaingressos;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class IngressoManager {
@@ -15,7 +13,7 @@ public class IngressoManager {
 
     public List<Ingresso> lerConteudoArquivo() throws IOException {
         try {
-            FileReader fileReader = new FileReader("ingressoss.json");
+            FileReader fileReader = new FileReader("ingressos.json");
             Type listType = new TypeToken<ArrayList<Ingresso>>() {}.getType();
             listaingresso = new Gson().fromJson(fileReader, listType);
             fileReader.close();

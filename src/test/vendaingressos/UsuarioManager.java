@@ -38,8 +38,8 @@ public class UsuarioManager {
         // Retorna a lista de usuários
         return listausuario;
     }
-    public boolean adicionarUsuarioNoArquivo(String login, String password, String name, String cpf, String email, Boolean isAdmin) throws IOException {
-        Usuario usuario = new Usuario(login, password, name, cpf, email, isAdmin);
+    public boolean adicionarUsuarioNoArquivo(String login, String password, String name, String cpf, String email, Boolean isAdmin, String id) throws IOException {
+        Usuario usuario = new Usuario(login, password, name, cpf, email, isAdmin, id);
         lerConteudoArquivo();
         listausuario.add(usuario);
         String jsonUsuarios = new Gson().toJson(listausuario);

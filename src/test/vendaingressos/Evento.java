@@ -26,6 +26,13 @@ public class Evento {
         this.data = data;
     }
 
+    public Evento(String nome, String descricao, Date data, String id){
+        this.nome = nome;
+        this.descricao = descricao;
+        this.data = data;
+        this.id = id;
+    }
+
     public Evento(String login, String nome, String descricao, Date data, String id, List<String> assentos){
         this.login = login;
         this.nome = nome;
@@ -52,14 +59,6 @@ public class Evento {
 
     public Date getData(){
         return data;
-    }
-
-    public List<Integer> getAvaliacao(){
-        return comentarios.avaliacoes;
-    }
-
-    public List<String> getComentarios(){
-        return comentarios.comentarios;
     }
 
     public List<String> getAssentos(){ return assentos; }
