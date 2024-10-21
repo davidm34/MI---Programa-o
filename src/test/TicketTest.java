@@ -1,15 +1,9 @@
-package Tests.TicketTest;
-
-import Facade.EventTestFacade;
-import Facade.TicketTestFacade;
-import Facade.UserTestFacade;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
-
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
@@ -26,14 +20,14 @@ public class TicketTest {
     }
 
     @After
-    public void tearDown() {
+    public void tearDown() throws IOException {
         userFacade.deleteAllUsers();
         eventFacade.deleteAllEvents();
         ticketFacade.deleteAllTickets();
     }
 
     @Test
-    public void ticketCreateTest() {
+    public void ticketCreateTest() throws IOException {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2025, Calendar.SEPTEMBER, 10);
         String name = "Show de Rock";
@@ -63,7 +57,7 @@ public class TicketTest {
     }
 
     @Test
-    public void ticketCancelTest() {
+    public void ticketCancelTest() throws IOException {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2025, Calendar.SEPTEMBER, 10);
         String name = "Show de Rock";

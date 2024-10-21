@@ -1,5 +1,4 @@
-import vendaingressos.Comment;
-
+import vendaingressos.Avaliacao;
 public class PurchaseTestFacade {
 
     public PurchaseTestFacade() {
@@ -33,7 +32,7 @@ public class PurchaseTestFacade {
         
     }
 
-    public Comment getCardByPurchaseID(String id){
+    public Avaliacao getCardByPurchaseID(String id){
         
     }
 

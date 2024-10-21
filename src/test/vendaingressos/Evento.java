@@ -8,11 +8,11 @@ public class Evento {
     private String nome;
     private String descricao;
     protected Date data;
-    Comment comentarios;
+    Avaliacao comentarios;
 
     List<String> assentos = new ArrayList<>();
 
-    public Evento(String nome, String descricao, Date data, Comment comentarios){
+    public Evento(String nome, String descricao, Date data, Avaliacao comentarios){
         this.nome = nome;
         this.descricao = descricao;
         this.data = data;

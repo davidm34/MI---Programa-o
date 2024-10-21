@@ -1,5 +1,5 @@
 import org.junit.Test;
-import vendaingressos.Comment;
+import vendaingressos.Avaliacao;
 import vendaingressos.Evento;
 
 import java.util.ArrayList;
@@ -74,20 +74,5 @@ public class EventoTest {
         assertFalse(evento.isAtivo());
     }
 
-    @Test
-    public void testComentarioEvento() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2025, Calendar.SEPTEMBER, 10);
-        Date data = calendar.getTime();
-        List<String> eventoComentarios = new ArrayList<>();
-        List<Integer> eventoAvaliacoes = new ArrayList<>();
-        eventoComentarios.add("Gostei muito do show");
-        eventoAvaliacoes.add(5);
-        Comment comment = new Comment(eventoAvaliacoes, eventoComentarios);
-        Evento evento = new Evento("Show de Rock", "Banda XYZ", data, comment);
-
-        assertEquals(eventoComentarios, evento.getComentarios());
-        assertEquals(eventoAvaliacoes, evento.getAvaliacao());
-    }
 
 }

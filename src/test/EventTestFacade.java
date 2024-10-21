@@ -73,6 +73,7 @@ public class EventTestFacade {
                 return evento.getAssentos();
             }
         }
+        return null;
     }
 
     public String getDescriptionByEventId(String id) throws IOException {
@@ -130,8 +131,15 @@ public class EventTestFacade {
         return false;
     }
 
-    public String addEventInDataBaseWithPastDate(String name, String description, Date date){
-        
+    public String addEventInDataBaseWithPastDate(String name, String description, Date date) throws IOException {
+        UUID uuid = UUID.randomUUID();
+        String id = String.valueOf(uuid);
+        Evento evento = new Evento(loginAdmin, name, description, date, id);
+        EventoManager eventoManager = new EventoManager();
+        if(eventoManager.adicionarEventoNoArquivo(evento)){
+            return id;
+        }
+        return null;
     }
 
     public int getCommentQuantityByEventId(String id){

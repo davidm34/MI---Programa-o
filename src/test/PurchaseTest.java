@@ -2,6 +2,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -24,7 +25,7 @@ public class PurchaseTest {
     }
 
     @After
-    public void tearDown() {
+    public void tearDown() throws IOException {
         cardFacade.deleteAllCards();
         userFacade.deleteAllUsers();
         eventFacade.deleteAllEvents();
@@ -33,7 +34,7 @@ public class PurchaseTest {
     }
 
     @Test
-    public void createReceiptPurchaseTest(){
+    public void createReceiptPurchaseTest() throws IOException {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2025, Calendar.SEPTEMBER, 10);
         String name = "Show de Rock";

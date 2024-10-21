@@ -10,7 +10,7 @@ public class CommentTestFacade {
         
     }
 
-    public Comment getById(String id){
+    public Avaliacao getById(String id){
         
     }
 

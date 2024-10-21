@@ -1,4 +1,4 @@
-import vendaingressos.Comment;
+import vendaingressos.Avaliacao;
 import java.util.Date;
 
 public class CardTestFacade {
@@ -44,7 +44,7 @@ public class CardTestFacade {
 
     }
 
-    public Comment getById(String id){
+    public Avaliacao getById(String id){
 
     }
 

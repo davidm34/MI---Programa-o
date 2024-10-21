@@ -2,14 +2,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import vendaingressos.CommentTestFacade;
-
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
 import static org.junit.Assert.*;
 
-public class CommentTest {
+public class AvaliacaoTest {
     private UserTestFacade userTestFacade;
     private EventTestFacade eventTestFacadeFacade;
     private TicketTestFacade ticketTestFacade;

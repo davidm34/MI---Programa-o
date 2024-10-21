@@ -4,6 +4,10 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Ingresso {
+
+    String idEvento;
+
+    String id;
     Evento evento;
     Double preco;
     String assento;
@@ -14,6 +18,13 @@ public class Ingresso {
         this.evento = evento;
         this.preco = preco;
         this.assento = assento;
+    }
+
+    public Ingresso(String idEvento, Double preco, String assento, String id){
+        this.idEvento = idEvento;
+        this.preco = preco;
+        this.assento = assento;
+        this.id = id;
     }
 
     public Evento getEvento() {
@@ -27,6 +38,10 @@ public class Ingresso {
     public String getAssento() {
         return assento;
     }
+
+    public String getId(){ return id; }
+
+    public String getIdEvento(){ return idEvento;}
 
     public Boolean isAtivo() {
         return ativo;
@@ -46,6 +61,10 @@ public class Ingresso {
     public Boolean reativar() {
         ativo = true;
         return true;
+    }
+
+    public void cancelarIngresso(){
+        ativo = false;
     }
 
     public boolean equals(Object objeto) {
