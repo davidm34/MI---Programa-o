@@ -22,7 +22,6 @@ public class Controller {
         return usuario;
     }
 
-    // Adicionado a classe comentario como paramêtro
     public Evento cadastrarEvento(Usuario admin, String nome, String descricao, Date data) {
         if (!admin.isAdmin()) {
             throw new SecurityException("Somente administradores podem cadastrar eventos.");

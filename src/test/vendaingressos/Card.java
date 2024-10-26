@@ -1,44 +1,40 @@
 package vendaingressos;
-import com.google.gson.Gson;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Date;
 
 public class Card {
 
-    private String agencia;
-    private String numerodoCartao;
+    private String idUsuario;
     private String nomedoCartao;
-
+    private String numerodoCartao;
     private Date validade;
+    private int codigoDeSeguranca;
 
-    private String codigoDeSeguranca;
-
-    public Card(String agencia, String numerodoCartao, String nomedoCartao, Date validade, String codigoDeSeguranca){
-        this.agencia = agencia;
-        this.numerodoCartao = numerodoCartao;
+    public Card(String idUsuario, String nomedoCartao, String numerodoCartao, Date validade, int codigoDeSeguranca){
+        this.idUsuario = idUsuario;
         this.nomedoCartao = nomedoCartao;
+        this.numerodoCartao = numerodoCartao;
         this.validade = validade;
         this.codigoDeSeguranca = codigoDeSeguranca;
     }
 
-    public void salvar(String path, Card card) throws IOException {
-        Gson gson = new Gson();
-
-        try (FileWriter writer = new FileWriter(path + "\\cartao.json")) {
-            gson.toJson(card, writer);
-        }
+    public String getIdUsuario() {
+        return idUsuario;
     }
 
-    public Card carregar(String path) throws IOException {
-        Gson gson = new Gson();
-        try (FileReader reader = new FileReader(path + "\\comentario.json")) {
-            return gson.fromJson(reader, Card.class);
-        }
+    public Date getValidade() {
+        return validade;
     }
 
+    public int getCodigoDeSeguranca() {
+        return codigoDeSeguranca;
+    }
 
+    public String getNomedoCartao() {
+        return nomedoCartao;
+    }
 
+    public String getNumerodoCartao() {
+        return numerodoCartao;
+    }
 
 }

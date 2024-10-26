@@ -1,13 +1,8 @@
-
-
-
-
-import Facade.CardTestFacade;
-import Facade.UserTestFacade;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -24,13 +19,13 @@ public class CardTest {
     }
 
     @After
-    public void tearDown() {
+    public void tearDown() throws IOException {
         cardFacade.deleteAllCards();
         userFacade.deleteAllUsers();
     }
 
     @Test
-    public void CardCreateTest() {
+    public void CardCreateTest() throws IOException {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2026, Calendar.DECEMBER, 20);
         String cardNumber = "12345678";
@@ -56,7 +51,7 @@ public class CardTest {
     }
 
     @Test
-    public void CardRemoveTest() {
+    public void CardRemoveTest() throws IOException {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2026, Calendar.DECEMBER, 20);
         String cardNumber = "12345678";
@@ -78,7 +73,7 @@ public class CardTest {
     }
 
     @Test
-    public void CardDisableTest() {
+    public void CardDisableTest() throws IOException {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2025, Calendar.NOVEMBER, 15);
         String cardNumber = "87654321";
@@ -100,7 +95,7 @@ public class CardTest {
     }
 
     @Test
-    public void CardDuplicateTest() {
+    public void CardDuplicateTest() throws IOException {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2027, Calendar.MARCH, 10);
         String cardNumber = "12345678";

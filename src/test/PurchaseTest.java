@@ -74,7 +74,7 @@ public class PurchaseTest {
     }
 
     @Test
-    public void createCardPurchaseTest(){
+    public void createCardPurchaseTest() throws IOException {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2025, Calendar.SEPTEMBER, 10);
         String name = "Show de Rock";
