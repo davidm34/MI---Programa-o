@@ -2,7 +2,6 @@ package vendaingressos;
 import java.util.Date;
 
 public class Card {
-
     private String idUsuario;
     private String nomedoCartao;
     private String numerodoCartao;

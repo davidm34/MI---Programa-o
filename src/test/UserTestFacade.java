@@ -11,9 +11,15 @@ public class UserTestFacade {
     public UserTestFacade() {}
 
     public boolean create(String login, String password, String name, String cpf, String email, Boolean isAdmin) throws IOException {
+        UsuarioManager usuarioManager = new UsuarioManager();
+        List<Usuario> usuarios = usuarioManager.lerConteudoArquivo();
+        for (Usuario usuario : usuarios) {
+            if (usuario.getEmail().equals(email)) {
+                throw new SecurityException("Login, email e/ou cpf já está em uso.");
+            }
+        }
         UUID uuid = UUID.randomUUID();
         String id = String.valueOf(uuid);
-        UsuarioManager usuarioManager = new UsuarioManager();
         return usuarioManager.adicionarUsuarioNoArquivo(login, password, name, cpf, email, isAdmin, id);
     }
 
@@ -28,22 +34,27 @@ public class UserTestFacade {
         return null;
     }
 
-    public void setNameByUserEmail(String name, String email) throws IOException {
+    public void setNameByUserEmail(String newName, String email) throws IOException {
         UsuarioManager usuarioManager = new UsuarioManager();
         List<Usuario> usuarios = usuarioManager.lerConteudoArquivo();
+
         for (Usuario usuario : usuarios) {
             if (usuario.getEmail().equals(email)) {
-                usuario.setNome(name);
+                usuario.setNome(newName);
+                usuarioManager.salvarUsuarios(usuarios); // Salva as alterações no arquivo
+                return;
             }
         }
     }
 
-    public void setPasswordByUserEmail(String password, String email) throws IOException {
+    public void setPasswordByUserEmail(String newPassword, String email) throws IOException {
         UsuarioManager usuarioManager = new UsuarioManager();
         List<Usuario> usuarios = usuarioManager.lerConteudoArquivo();
         for (Usuario usuario : usuarios) {
             if (usuario.getEmail().equals(email)) {
-                usuario.setNome(password);
+                usuario.setSenha(newPassword);
+                usuarioManager.salvarUsuarios(usuarios);
+                return;
             }
         }
     }
@@ -53,7 +64,9 @@ public class UserTestFacade {
         List<Usuario> usuarios = usuarioManager.lerConteudoArquivo();
         for (Usuario usuario : usuarios) {
             if (usuario.getEmail().equals(email)) {
-                usuario.setNome(email);
+                usuario.setEmail(newEmail);
+                usuarioManager.salvarUsuarios(usuarios);
+                return;
             }
         }
     }
@@ -141,6 +154,7 @@ public class UserTestFacade {
         UsuarioManager usuarioManager = new UsuarioManager();
         List<Usuario> usuarios = usuarioManager.lerConteudoArquivo();
         usuarioManager.deletarUsuarioPorEmail(email, usuarios);
+        usuarioManager.salvarUsuarios(usuarios);
     }
 
     public boolean login(String login, String password) throws IOException {

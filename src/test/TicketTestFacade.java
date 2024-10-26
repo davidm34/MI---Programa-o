@@ -77,10 +77,6 @@ public class TicketTestFacade {
         }
     }
 
-    public boolean getIsAdminTicketId(String id){
-
-    }
-
     public Ingresso getById(String id) throws IOException {
         IngressoManager ingressoManager = new IngressoManager();
         List<Ingresso> ingressos = ingressoManager.lerConteudoArquivo();

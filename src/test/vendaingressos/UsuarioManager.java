@@ -14,10 +14,7 @@ public class UsuarioManager {
 
     public List<Usuario> lerConteudoArquivo() throws IOException {
         try {
-            // Lê o conteúdo do arquivo "usuarios.json"
             FileReader fileReader = new FileReader("usuarios.json");
-
-            // Usa Gson para converter o JSON em uma lista de usuários
             Type listType = new TypeToken<ArrayList<Usuario>>() {}.getType();
             listausuario = new Gson().fromJson(fileReader, listType);
 
@@ -60,10 +57,22 @@ public class UsuarioManager {
         }
     }
     public void limparArquivoJson() throws IOException {
-        FileWriter fileWriter = new FileWriter("usuarios.json");
-        fileWriter.write("[]");
-        fileWriter.flush();
-        fileWriter.close();
-        listausuario.clear();
+        try (FileWriter fileWriter = new FileWriter("usuarios.json")) {
+            fileWriter.write("[]"); // Escreve uma lista vazia no arquivo
+        }
+
+        if (listausuario == null) {
+            listausuario = new ArrayList<>(); // Inicializa a lista se estiver nula
+        }
+        listausuario.clear(); // Limpa a lista
     }
+
+    public void salvarUsuarios(List<Usuario> usuarios) throws IOException {
+        try (FileWriter fileWriter = new FileWriter("usuarios.json")) {
+            String jsonUsuarios = new Gson().toJson(usuarios);
+            fileWriter.write(jsonUsuarios);
+        }
+    }
+
+
 }
