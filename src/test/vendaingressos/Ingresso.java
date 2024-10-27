@@ -12,6 +12,8 @@ public class Ingresso {
     Double preco;
     String assento;
 
+    Boolean ingressoAtivo;
+
     Boolean ativo = true;
 
     public Ingresso(Evento evento, Double preco, String assento) {
@@ -20,11 +22,12 @@ public class Ingresso {
         this.assento = assento;
     }
 
-    public Ingresso(String idEvento, Double preco, String assento, String id){
+    public Ingresso(String idEvento, Double preco, String assento, String id, Boolean ingressoAtivo){
         this.idEvento = idEvento;
         this.preco = preco;
         this.assento = assento;
         this.id = id;
+        this.ingressoAtivo = true;
     }
 
     public Evento getEvento() {
@@ -47,7 +50,15 @@ public class Ingresso {
         return ativo;
     }
 
+    public Boolean getIngressoAtivo() {
+        return ingressoAtivo;
+    }
+
     Date data_atual = new Date();
+
+    public void setIngressoAtivo(Boolean ingressoAtivo) {
+        this.ingressoAtivo = ingressoAtivo;
+    }
 
     public Boolean cancelar() {
         if (evento.data.after(data_atual)) {

@@ -28,7 +28,7 @@ public class EventoManager {
         return listaevento;
     }
 
-    public boolean adicionarEventoNoArquivo(Evento evento) throws IOException {
+    public void adicionarEventoNoArquivo(Evento evento) throws IOException {
         lerConteudoArquivo();
         listaevento.add(evento);
         String jsonEvento = new Gson().toJson(listaevento);
@@ -36,14 +36,18 @@ public class EventoManager {
         fileWriter.write(jsonEvento);
         fileWriter.flush();
         fileWriter.close();
-        return true;
     }
 
     public void limparArquivoJson() throws IOException {
-        FileWriter fileWriter = new FileWriter("eventos.json");
-        fileWriter.write("[]");
-        fileWriter.flush();
-        fileWriter.close();
-        listaevento.clear();
+        try (FileWriter fileWriter = new FileWriter("eventos.json")) {
+            fileWriter.write("[]"); // Escreve uma lista vazia no arquivo
+        }
+
+        if (listaevento == null) {
+            listaevento = new ArrayList<>(); // Inicializa a lista se estiver nula
+        }
+        listaevento.clear(); // Limpa a lista
     }
+
+
 }

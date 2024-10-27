@@ -39,11 +39,26 @@ public class IngressoManager {
     }
 
     public void limparArquivoJson() throws IOException {
-        FileWriter fileWriter = new FileWriter("ingressos.json");
-        fileWriter.write("[]");
-        fileWriter.flush();
-        fileWriter.close();
-        listaingresso.clear();
+        try (FileWriter fileWriter = new FileWriter("ingressos.json")) {
+            fileWriter.write("[]"); // Escreve uma lista vazia no arquivo
+        }
+
+        if (listaingresso == null) {
+            listaingresso = new ArrayList<>(); // Inicializa a lista se estiver nula
+        }
+        listaingresso.clear(); // Limpa a lista
     }
+
+    public void save(Ingresso ticket) throws IOException {
+        // Atualiza a lista de tickets, removendo qualquer ticket com o mesmo ID antes de adicionar o novo
+        listaingresso.removeIf(t -> t.getId().equals(ticket.getId()));
+        listaingresso.add(ticket);
+
+        // Serializa e salva a lista de tickets atualizada no arquivo JSON
+        try (FileWriter fileWriter = new FileWriter("ingressos.json")) {
+            new Gson().toJson(listaingresso, fileWriter);
+        }
+    }
+
 }
 

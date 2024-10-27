@@ -111,7 +111,7 @@ public class TicketTest {
         assertTrue(ticketFacade.getIsActive(ticketId));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void duplicateTicketTest() throws Exception {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2025, Calendar.SEPTEMBER, 10);

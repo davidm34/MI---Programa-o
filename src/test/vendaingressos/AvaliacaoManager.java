@@ -41,10 +41,13 @@ public class AvaliacaoManager {
     }
 
     public void limparArquivoJson() throws IOException {
-        FileWriter fileWriter = new FileWriter("avaliacoes.json");
-        fileWriter.write("[]");
-        fileWriter.flush();
-        fileWriter.close();
-        listaavaliacao.clear();
+        try (FileWriter fileWriter = new FileWriter("avaliacoes.json")) {
+            fileWriter.write("[]"); // Escreve uma lista vazia no arquivo
+        }
+
+        if (listaavaliacao == null) {
+            listaavaliacao = new ArrayList<>(); // Inicializa a lista se estiver nula
+        }
+        listaavaliacao.clear(); // Limpa a lista
     }
 }

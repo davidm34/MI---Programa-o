@@ -45,4 +45,11 @@ public class CompraManager {
         fileWriter.close();
         listacompra.clear();
     }
+
+    public void salvarCompras(List<Compra> compras) throws IOException {
+        try (FileWriter fileWriter = new FileWriter("compras.json")) {
+            String jsonCompras = new Gson().toJson(compras);
+            fileWriter.write(jsonCompras);
+        }
+    }
 }

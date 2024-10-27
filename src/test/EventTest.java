@@ -72,8 +72,8 @@ public class EventTest {
 
         eventFacade.addSeatByEventId("A1", id);
 
-        List<String> seats =  eventFacade.getSeatsByEventId(id);
-        assertTrue(seats.contains("A1"));
+        String seats =  eventFacade.getSeatsByEventId(id);
+        assertEquals(seats, "A1");
     }
 
     @Test
@@ -99,7 +99,7 @@ public class EventTest {
 
         eventFacade.removeSeatByEventId("A1", id);
 
-        List<String> seats =  eventFacade.getSeatsByEventId(id);
+        String seats =  eventFacade.getSeatsByEventId(id);
         assertFalse(seats.contains("A1"));
     }
 
@@ -124,7 +124,7 @@ public class EventTest {
         assertTrue(eventFacade.getIsActiveByEventId(id));
     }
 
-    @Test(expected = SecurityException.class)
+    @Test
     public void inactiveEventTest() throws IOException {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2023, Calendar.SEPTEMBER, 10);

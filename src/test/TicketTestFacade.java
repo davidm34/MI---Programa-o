@@ -16,7 +16,7 @@ public class TicketTestFacade {
     public String create(String eventId, Double price, String seat) throws IOException {
         UUID uuid = UUID.randomUUID();
         String id = String.valueOf(uuid);
-        Ingresso ingresso = new Ingresso(eventId, price, seat, id);
+        Ingresso ingresso = new Ingresso(eventId, price, seat, id, true);
         IngressoManager ingressoManager = new IngressoManager();
         if(ingressoManager.adicionarIngressoNoArquivo(ingresso)){
             return id;
@@ -46,15 +46,17 @@ public class TicketTestFacade {
         return null;
     }
 
-    public void cancelByTicketId(String id) throws IOException {
+    public void cancelByTicketId(String ticketId) throws IOException {
         IngressoManager ingressoManager = new IngressoManager();
         List<Ingresso> ingressos = ingressoManager.lerConteudoArquivo();
         for (Ingresso ingresso : ingressos) {
-            if (ingresso.getId().equals(id)) {
-                ingresso.cancelarIngresso();
+            if (ingresso.getId().equals(ticketId)) {
+                ingresso.setIngressoAtivo(false); // Marca o ticket como inativo
+                ingressoManager.save(ingresso); // Atualiza o ticket no sistema de persistência
             }
         }
     }
+
 
     public String getSeatByTicketId(String id) throws IOException {
         IngressoManager ingressoManager = new IngressoManager();
@@ -72,7 +74,8 @@ public class TicketTestFacade {
         List<Ingresso> ingressos = ingressoManager.lerConteudoArquivo();
         for (Ingresso ingresso : ingressos) {
             if (ingresso.getId().equals(id)) {
-                ingresso.reativar();
+                ingresso.setIngressoAtivo(true); // Marca o ticket como inativo
+                ingressoManager.save(ingresso); // Atualiza o ticket no sistema de persistência
             }
         }
     }
@@ -93,13 +96,14 @@ public class TicketTestFacade {
         List<Ingresso> ingressos = ingressoManager.lerConteudoArquivo();
         for (Ingresso ingresso : ingressos) {
             if (ingresso.getId().equals(id)) {
-                return ingresso.isAtivo();
+                return ingresso.getIngressoAtivo();
             }
         }
         return false;
     }
 
-    public void deleteAllTickets(){
-     
+    public void deleteAllTickets() throws IOException {
+        IngressoManager ingressoManager = new IngressoManager();
+        ingressoManager.limparArquivoJson();
     }
 }

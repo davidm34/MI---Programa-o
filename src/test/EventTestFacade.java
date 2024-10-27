@@ -17,7 +17,8 @@ public class EventTestFacade {
         List<Evento> eventos = eventoManager.lerConteudoArquivo();
         for (Evento evento : eventos) {
             if (evento.getId().equals(id)) {
-                evento.removerAssentoProObjeto(seat);
+                Assento assento = new Assento(id, seat);
+                evento.deletarAssento(assento);
             }
         }
     }
@@ -27,7 +28,8 @@ public class EventTestFacade {
         List<Evento> eventos = eventoManager.lerConteudoArquivo();
         for (Evento evento : eventos) {
             if (evento.getId().equals(id)) {
-                evento.adicionarAssentoProObjeto(seat);
+                Assento assento = new Assento(id, seat);
+                evento.adicionarAssentoNoArquivo(assento);
             }
         }
     }
@@ -37,10 +39,8 @@ public class EventTestFacade {
         String id = String.valueOf(uuid);
         Evento evento = new Evento(loginAdmin, name, description, date, id);
         EventoManager eventoManager = new EventoManager();
-        if(eventoManager.adicionarEventoNoArquivo(evento)){
-             return id;
-        }
-        return null;
+        eventoManager.adicionarEventoNoArquivo(evento);
+        return id;
     }
 
     public Evento getById(String id) throws IOException {
@@ -65,12 +65,17 @@ public class EventTestFacade {
         return null;
     }
 
-    public List<String> getSeatsByEventId(String id) throws IOException {
+    public String getSeatsByEventId(String id) throws IOException {
         EventoManager eventoManager = new EventoManager();
         List<Evento> eventos = eventoManager.lerConteudoArquivo();
         for (Evento evento : eventos) {
             if (evento.getId().equals(id)) {
-                return evento.getAssentos();
+                List<Assento> assentos = evento.lerConteudoArquivoAssento();
+                for(Assento assento : assentos){
+                    if(assento.getIdEvento().equals(id)){
+                        return assento.getSeat();
+                    }
+                }
             }
         }
         return null;
@@ -147,10 +152,8 @@ public class EventTestFacade {
         String id = String.valueOf(uuid);
         Evento evento = new Evento(name, description, date, id);
         EventoManager eventoManager = new EventoManager();
-        if(eventoManager.adicionarEventoNoArquivo(evento)){
-            return id;
-        }
-        return null;
+        eventoManager.adicionarEventoNoArquivo(evento);
+        return id;
     }
 
     public int getCommentQuantityByEventId(String id) throws IOException {
