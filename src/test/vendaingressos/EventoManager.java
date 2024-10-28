@@ -1,4 +1,5 @@
 package vendaingressos;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -9,9 +10,22 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe que gerencia as operações relacionadas aos eventos, incluindo leitura,
+ * escrita e manipulação da lista de eventos armazenados em um arquivo JSON.
+ *
+ * @author David Neves Dias
+ */
 public class EventoManager {
+    /** Lista de eventos gerenciados. */
     private List<Evento> listaevento;
 
+    /**
+     * Lê o conteúdo do arquivo JSON e retorna a lista de eventos.
+     *
+     * @return A lista de eventos lida do arquivo.
+     * @throws IOException Se ocorrer um erro ao ler o arquivo.
+     */
     public List<Evento> lerConteudoArquivo() throws IOException {
         try {
             FileReader fileReader = new FileReader("eventos.json");
@@ -28,6 +42,12 @@ public class EventoManager {
         return listaevento;
     }
 
+    /**
+     * Adiciona um evento à lista e salva a lista no arquivo JSON.
+     *
+     * @param evento O evento a ser adicionado.
+     * @throws IOException Se ocorrer um erro ao escrever no arquivo.
+     */
     public void adicionarEventoNoArquivo(Evento evento) throws IOException {
         lerConteudoArquivo();
         listaevento.add(evento);
@@ -38,6 +58,11 @@ public class EventoManager {
         fileWriter.close();
     }
 
+    /**
+     * Limpa o conteúdo do arquivo JSON, substituindo-o por uma lista vazia.
+     *
+     * @throws IOException Se ocorrer um erro ao escrever no arquivo.
+     */
     public void limparArquivoJson() throws IOException {
         try (FileWriter fileWriter = new FileWriter("eventos.json")) {
             fileWriter.write("[]"); // Escreve uma lista vazia no arquivo
@@ -49,6 +74,12 @@ public class EventoManager {
         listaevento.clear(); // Limpa a lista
     }
 
+    /**
+     * Salva um evento na lista, removendo eventos duplicados com o mesmo ID.
+     *
+     * @param evento O evento a ser salvo.
+     * @throws IOException Se ocorrer um erro ao escrever no arquivo.
+     */
     public void save(Evento evento) throws IOException {
         // Verifica e inicializa `listaevento` caso esteja nulo
         if (listaevento == null) {
@@ -64,6 +95,4 @@ public class EventoManager {
             new Gson().toJson(listaevento, fileWriter);
         }
     }
-
-
 }

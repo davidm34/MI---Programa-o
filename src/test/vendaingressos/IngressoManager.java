@@ -1,6 +1,8 @@
 package vendaingressos;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,9 +10,22 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe responsável pela gestão dos ingressos, incluindo leitura,
+ * escrita e manipulação de dados em um arquivo JSON.
+ *
+ * @author David Neves Dias
+ */
 public class IngressoManager {
+    /** Lista de ingressos gerenciada por esta classe. */
     private List<Ingresso> listaingresso;
 
+    /**
+     * Lê o conteúdo do arquivo de ingressos e o converte em uma lista de objetos Ingresso.
+     *
+     * @return Lista de ingressos lidos do arquivo.
+     * @throws IOException Se ocorrer um erro ao ler o arquivo.
+     */
     public List<Ingresso> lerConteudoArquivo() throws IOException {
         try {
             FileReader fileReader = new FileReader("ingressos.json");
@@ -27,6 +42,13 @@ public class IngressoManager {
         return listaingresso;
     }
 
+    /**
+     * Adiciona um ingresso à lista e salva a lista atualizada no arquivo JSON.
+     *
+     * @param ingressos O ingresso a ser adicionado.
+     * @return true se a adição for bem-sucedida.
+     * @throws IOException Se ocorrer um erro ao escrever no arquivo.
+     */
     public boolean adicionarIngressoNoArquivo(Ingresso ingressos) throws IOException {
         lerConteudoArquivo();
         listaingresso.add(ingressos);
@@ -38,6 +60,11 @@ public class IngressoManager {
         return true;
     }
 
+    /**
+     * Limpa o conteúdo do arquivo JSON, escrevendo uma lista vazia.
+     *
+     * @throws IOException Se ocorrer um erro ao escrever no arquivo.
+     */
     public void limparArquivoJson() throws IOException {
         try (FileWriter fileWriter = new FileWriter("ingressos.json")) {
             fileWriter.write("[]"); // Escreve uma lista vazia no arquivo
@@ -49,6 +76,13 @@ public class IngressoManager {
         listaingresso.clear(); // Limpa a lista
     }
 
+    /**
+     * Salva um ingresso, removendo qualquer ingresso existente com o mesmo ID
+     * antes de adicionar o novo.
+     *
+     * @param ticket O ingresso a ser salvo.
+     * @throws IOException Se ocorrer um erro ao escrever no arquivo.
+     */
     public void save(Ingresso ticket) throws IOException {
         // Atualiza a lista de tickets, removendo qualquer ticket com o mesmo ID antes de adicionar o novo
         listaingresso.removeIf(t -> t.getId().equals(ticket.getId()));
@@ -59,6 +93,4 @@ public class IngressoManager {
             new Gson().toJson(listaingresso, fileWriter);
         }
     }
-
 }
-

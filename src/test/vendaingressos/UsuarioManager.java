@@ -1,4 +1,5 @@
 package vendaingressos;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -9,9 +10,21 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe responsável pela gestão de usuários, incluindo operações
+ * de leitura e escrita em arquivos JSON.
+ *
+ * @author David Neves Dias
+ */
 public class UsuarioManager {
     private List<Usuario> listausuario;
 
+    /**
+     * Lê o conteúdo do arquivo JSON e retorna a lista de usuários.
+     *
+     * @return Lista de usuários lida do arquivo.
+     * @throws IOException Se ocorrer um erro ao ler o arquivo.
+     */
     public List<Usuario> lerConteudoArquivo() throws IOException {
         try {
             FileReader fileReader = new FileReader("usuarios.json");
@@ -35,6 +48,20 @@ public class UsuarioManager {
         // Retorna a lista de usuários
         return listausuario;
     }
+
+    /**
+     * Adiciona um novo usuário ao arquivo JSON.
+     *
+     * @param login O login do usuário.
+     * @param password A senha do usuário.
+     * @param name O nome do usuário.
+     * @param cpf O CPF do usuário.
+     * @param email O email do usuário.
+     * @param isAdmin Indica se o usuário é um administrador.
+     * @param id O ID do usuário.
+     * @return true se o usuário foi adicionado com sucesso.
+     * @throws IOException Se ocorrer um erro ao escrever no arquivo.
+     */
     public boolean adicionarUsuarioNoArquivo(String login, String password, String name, String cpf, String email, Boolean isAdmin, String id) throws IOException {
         Usuario usuario = new Usuario(login, password, name, cpf, email, isAdmin, id);
         lerConteudoArquivo();
@@ -47,6 +74,12 @@ public class UsuarioManager {
         return true;
     }
 
+    /**
+     * Remove um usuário da lista pelo seu email.
+     *
+     * @param email O email do usuário a ser removido.
+     * @param usuarios A lista de usuários.
+     */
     public void deletarUsuarioPorEmail(String email, List<Usuario> usuarios) {
         for (int i = 0; i < usuarios.size(); i++) {
             Usuario usuario = usuarios.get(i);
@@ -56,6 +89,12 @@ public class UsuarioManager {
             }
         }
     }
+
+    /**
+     * Limpa o conteúdo do arquivo JSON, deixando uma lista vazia.
+     *
+     * @throws IOException Se ocorrer um erro ao escrever no arquivo.
+     */
     public void limparArquivoJson() throws IOException {
         try (FileWriter fileWriter = new FileWriter("usuarios.json")) {
             fileWriter.write("[]"); // Escreve uma lista vazia no arquivo
@@ -67,12 +106,16 @@ public class UsuarioManager {
         listausuario.clear(); // Limpa a lista
     }
 
+    /**
+     * Salva a lista de usuários no arquivo JSON.
+     *
+     * @param usuarios A lista de usuários a ser salva.
+     * @throws IOException Se ocorrer um erro ao escrever no arquivo.
+     */
     public void salvarUsuarios(List<Usuario> usuarios) throws IOException {
         try (FileWriter fileWriter = new FileWriter("usuarios.json")) {
             String jsonUsuarios = new Gson().toJson(usuarios);
             fileWriter.write(jsonUsuarios);
         }
     }
-
-
 }

@@ -1,11 +1,15 @@
 package vendaingressos;
 
-import java.io.IOException;
-import java.util.UUID;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Classe que representa um usuário do sistema, contendo informações pessoais,
+ * credenciais de login e a lista de ingressos comprados.
+ *
+ * @author David Neves Dias
+ */
 public class Usuario {
     private String login;
     private String senha;
@@ -16,9 +20,20 @@ public class Usuario {
 
     private String id;
 
+    /** Lista de ingressos comprados pelo usuário. */
     List<Ingresso> ingressos = new ArrayList<>();
 
-    public Usuario(String login, String senha, String nome, String cpf, String email, Boolean isadmin){
+    /**
+     * Construtor para criar um novo usuário com as informações fornecidas.
+     *
+     * @param login O login do usuário.
+     * @param senha A senha do usuário.
+     * @param nome O nome do usuário.
+     * @param cpf O CPF do usuário.
+     * @param email O email do usuário.
+     * @param isadmin Indica se o usuário tem privilégios de administrador.
+     */
+    public Usuario(String login, String senha, String nome, String cpf, String email, Boolean isadmin) {
         this.login = login;
         this.senha = senha;
         this.nome = nome;
@@ -27,7 +42,18 @@ public class Usuario {
         this.isadmin = isadmin;
     }
 
-    public Usuario(String login, String senha, String nome, String cpf, String email, Boolean isadmin, String id){
+    /**
+     * Construtor para criar um novo usuário com um ID.
+     *
+     * @param login O login do usuário.
+     * @param senha A senha do usuário.
+     * @param nome O nome do usuário.
+     * @param cpf O CPF do usuário.
+     * @param email O email do usuário.
+     * @param isadmin Indica se o usuário tem privilégios de administrador.
+     * @param id O ID do usuário.
+     */
+    public Usuario(String login, String senha, String nome, String cpf, String email, Boolean isadmin, String id) {
         this.login = login;
         this.senha = senha;
         this.nome = nome;
@@ -37,75 +63,89 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getLogin(){
+    public String getLogin() {
         return login;
     }
 
-    public String getNome(){
+    public String getNome() {
         return nome;
     }
 
-    public String getCpf(){
+    public String getCpf() {
         return cpf;
     }
 
-    public String getEmail(){
+    public String getEmail() {
         return email;
     }
 
-    public String getSenha(){ return senha; }
+    public String getSenha() {
+        return senha;
+    }
 
-    public String getId(){ return id; }
+    public String getId() {
+        return id;
+    }
 
-    public Boolean isAdmin(){
+    public Boolean isAdmin() {
         return isadmin;
     }
 
+    /**
+     * Verifica se as credenciais de login estão corretas.
+     *
+     * @param login O login a ser verificado.
+     * @param senha A senha a ser verificada.
+     * @return true se as credenciais estiverem corretas, false caso contrário.
+     */
     public boolean login(String login, String senha) {
         return this.login.equals(login) && this.senha.equals(senha);
     }
 
-    public String setSenha(String senha){
+    public String setSenha(String senha) {
         return this.senha = senha;
     }
 
-    public String setNome(String nome){
+    public String setNome(String nome) {
         return this.nome = nome;
     }
 
-    public String setCpf(String cpf){
+    public String setCpf(String cpf) {
         return this.cpf = cpf;
     }
 
-    public String setEmail(String email){
+    public String setEmail(String email) {
         return this.email = email;
     }
 
-    public void addIngresso(Ingresso ingresso){
+    public void addIngresso(Ingresso ingresso) {
         ingressos.add(ingresso);
     }
 
-    public void removeIngresso(Ingresso ingresso){
+    public void removeIngresso(Ingresso ingresso) {
         ingressos.remove(ingresso);
     }
 
-    public List<Ingresso> getIngressos(){
+    public List<Ingresso> getIngressos() {
         return ingressos;
     }
 
+    @Override
     public boolean equals(Object objeto) {
-        if (this == objeto){
+        if (this == objeto) {
             return true;
         }
         if (objeto == null || getClass() != objeto.getClass()) {
             return false;
         }
         Usuario usuario = (Usuario) objeto;
-        return Objects.equals(login, usuario.login) && Objects.equals(cpf, usuario.cpf) && Objects.equals(email, usuario.email);
+        return Objects.equals(login, usuario.login) &&
+                Objects.equals(cpf, usuario.cpf) &&
+                Objects.equals(email, usuario.email);
     }
 
+    @Override
     public int hashCode() {
         return Objects.hash(login, cpf, email);
     }
-
 }
