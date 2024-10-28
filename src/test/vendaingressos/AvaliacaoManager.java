@@ -50,4 +50,11 @@ public class AvaliacaoManager {
         }
         listaavaliacao.clear(); // Limpa a lista
     }
+
+    public void salvarAvaliacoesNoArquivo(List<Avaliacao> avaliacoes) throws IOException {
+        try (FileWriter fileWriter = new FileWriter("avaliacoes.json")) {
+            new Gson().toJson(avaliacoes, fileWriter);
+        }
+    }
+
 }

@@ -49,5 +49,21 @@ public class EventoManager {
         listaevento.clear(); // Limpa a lista
     }
 
+    public void save(Evento evento) throws IOException {
+        // Verifica e inicializa `listaevento` caso esteja nulo
+        if (listaevento == null) {
+            listaevento = lerConteudoArquivo();
+        }
+
+        // Atualiza lista, removendo eventos duplicados antes de adicionar o novo
+        listaevento.removeIf(t -> t.getId().equals(evento.getId()));
+        listaevento.add(evento);
+
+        // Serializa e salva a lista de eventos no arquivo JSON
+        try (FileWriter fileWriter = new FileWriter("eventos.json")) {
+            new Gson().toJson(listaevento, fileWriter);
+        }
+    }
+
 
 }

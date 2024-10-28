@@ -1,5 +1,6 @@
 import vendaingressos.Avaliacao;
 import vendaingressos.AvaliacaoManager;
+import vendaingressos.Usuario;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -17,7 +18,7 @@ public class CommentTestFacade {
     public String create(String userID, String eventID, int rating, String content) throws IOException {
         EventTestFacade eventTestFacade = new EventTestFacade();
         Date data_atual = new Date();
-        if(eventTestFacade.getDateByEventId(eventID).before(data_atual)) {
+        if(eventTestFacade.getDateByEventId(eventID).after(data_atual)) {
             throw new SecurityException("Comentário só pode ser adicionando após a realização do evento.");
         }
         UUID uuid = UUID.randomUUID();
@@ -90,19 +91,27 @@ public class CommentTestFacade {
 
     public double getEventRatingByEventId(String eventId) throws IOException {
         int rating = 0;
+        int tam = 0;
         AvaliacaoManager avaliacaoManager = new AvaliacaoManager();
         List<Avaliacao> avaliacoes = avaliacaoManager.lerConteudoArquivo();
         for (Avaliacao avaliacao : avaliacoes) {
             if (avaliacao.getIdEvento().equals(eventId)) {
                 rating += avaliacao.getAvaliacao();
+                tam++;
             }
         }
-        return rating;
+        return (double) rating / tam;
     }
 
     public void delete(String c1Id) throws IOException {
         AvaliacaoManager avaliacaoManager = new AvaliacaoManager();
         List<Avaliacao> avaliacoes = avaliacaoManager.lerConteudoArquivo();
+
+        // Remover a avaliação da lista com base no ID fornecido
         avaliacoes.removeIf(avaliacao -> avaliacao.getId().equals(c1Id));
+
+        // Salvar a lista atualizada no arquivo JSON
+        avaliacaoManager.salvarAvaliacoesNoArquivo(avaliacoes);
     }
+
 }

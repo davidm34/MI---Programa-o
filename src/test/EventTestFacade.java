@@ -152,14 +152,20 @@ public class EventTestFacade {
         String id = String.valueOf(uuid);
         Evento evento = new Evento(name, description, date, id);
         EventoManager eventoManager = new EventoManager();
-        eventoManager.adicionarEventoNoArquivo(evento);
+        eventoManager.save(evento);
         return id;
     }
 
     public int getCommentQuantityByEventId(String id) throws IOException {
         AvaliacaoManager avaliacaoManager = new AvaliacaoManager();
         List<Avaliacao> avaliacoes = avaliacaoManager.lerConteudoArquivo();
-        return avaliacoes.size();
+        int size = 0;
+        for (Avaliacao avaliacao : avaliacoes) {
+            if (avaliacao.getIdEvento().equals(id)) {
+                size++;
+            }
+        }
+        return size;
     }
 
     public void deleteAllEvents() throws IOException {
