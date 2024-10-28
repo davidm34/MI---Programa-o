@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.UUID;
 import java.util.List;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 public class EventTestFacade {
 
@@ -12,27 +13,33 @@ public class EventTestFacade {
         
     }
 
-    public void removeSeatByEventId(String seat, String id) throws IOException {
+    public void removeSeatByEventId(String seat, String eventId) throws IOException {
+        AssentoManager assentoManager = new AssentoManager();
+        List<Assento> assentos = assentoManager.lerConteudoArquivoAssento();
+
+        // Filtrar os assentos que não correspondem ao assento e ao evento fornecido
+        List<Assento> assentosFiltrados = assentos.stream()
+                .filter(assento -> !(assento.getSeat().equals(seat) && assento.getIdEvento().equals(eventId)))
+                .collect(Collectors.toList());
+
+        // Salvar a lista atualizada de assentos
+        assentoManager.salvarAssentosNoArquivo(assentosFiltrados);
+    }
+
+
+    public void addSeatByEventId(String seat, String eventId) throws IOException {
         EventoManager eventoManager = new EventoManager();
         List<Evento> eventos = eventoManager.lerConteudoArquivo();
         for (Evento evento : eventos) {
-            if (evento.getId().equals(id)) {
-                Assento assento = new Assento(id, seat);
-                evento.deletarAssento(assento);
+            if (evento.getId().equals(eventId)) {
+                Assento assento = new Assento(eventId, seat);
+                AssentoManager assentoManager = new AssentoManager();
+                assentoManager.save(assento);  // Adiciona o assento diretamente na lista do evento
+                break;
             }
         }
     }
 
-    public void addSeatByEventId(String seat, String id) throws IOException {
-        EventoManager eventoManager = new EventoManager();
-        List<Evento> eventos = eventoManager.lerConteudoArquivo();
-        for (Evento evento : eventos) {
-            if (evento.getId().equals(id)) {
-                Assento assento = new Assento(id, seat);
-                evento.adicionarAssentoNoArquivo(assento);
-            }
-        }
-    }
 
     public String create(String loginAdmin, String name, String description, Date date) throws IOException {
         UUID uuid = UUID.randomUUID();
@@ -65,21 +72,20 @@ public class EventTestFacade {
         return null;
     }
 
-    public String getSeatsByEventId(String id) throws IOException {
-        EventoManager eventoManager = new EventoManager();
-        List<Evento> eventos = eventoManager.lerConteudoArquivo();
-        for (Evento evento : eventos) {
-            if (evento.getId().equals(id)) {
-                List<Assento> assentos = evento.lerConteudoArquivoAssento();
-                for(Assento assento : assentos){
-                    if(assento.getIdEvento().equals(id)){
-                        return assento.getSeat();
-                    }
-                }
-            }
-        }
-        return null;
+    public String getSeatsByEventId(String eventId) throws IOException {
+        AssentoManager assentoManager = new AssentoManager();
+        List<Assento> assentos = assentoManager.lerConteudoArquivoAssento();
+
+        // Filtrar assentos do evento específico
+        List<String> seats = assentos.stream()
+                .filter(assento -> assento.getIdEvento().equals(eventId))
+                .map(Assento::getSeat)
+                .collect(Collectors.toList());
+
+        // Retornar a lista de assentos como uma string separada por vírgulas ou uma string vazia
+        return seats.isEmpty() ? "" : String.join(", ", seats);
     }
+
 
     public String getDescriptionByEventId(String id) throws IOException {
         EventoManager eventoManager = new EventoManager();

@@ -16,7 +16,6 @@ public class Evento {
     private String descricao;
     protected Date data;
 
-    public List<Assento> listaassentos;
     Avaliacao comentarios;
 
     List<String> assentos = new ArrayList<>();
@@ -62,42 +61,6 @@ public class Evento {
     }
 
     public List<String> getAssentos(){ return assentos; }
-
-    public List<Assento> lerConteudoArquivoAssento() throws IOException {
-        try {
-            FileReader fileReader = new FileReader("assentos.json");
-            Type listType = new TypeToken<ArrayList<Assento>>() {}.getType();
-            listaassentos = new Gson().fromJson(fileReader, listType);
-            fileReader.close();
-            if (listaassentos == null) {
-                listaassentos = new ArrayList<>();
-            }
-        } catch (IOException e) {
-            listaassentos = new ArrayList<>();
-            throw e;
-        }
-        return listaassentos;
-    }
-
-    public void adicionarAssentoNoArquivo(Assento assento) throws IOException {
-        lerConteudoArquivoAssento();
-        listaassentos.add(assento);
-        String jsonEvento = new Gson().toJson(listaassentos);
-        FileWriter fileWriter = new FileWriter("assentos.json");
-        fileWriter.write(jsonEvento);
-        fileWriter.flush();
-        fileWriter.close();
-    }
-
-    public void deletarAssento(Assento assento) {
-        for (int i = 0; i < listaassentos.size(); i++) {
-            if(Objects.equals(listaassentos.get(i), assento)){
-                listaassentos.remove(assento);
-                return;
-            }
-        }
-    }
-
 
     public void adicionarAssento(String assento){
         assentos.add(assento);
