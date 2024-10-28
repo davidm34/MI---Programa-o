@@ -1,8 +1,6 @@
-/*
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
@@ -63,13 +61,13 @@ public class PurchaseTest {
 
         assertNotNull(eventFacade.getById(eventId));
 
-        eventFacade.addSeatByEventId("A1", eventId);
+        //eventFacade.addSeatByEventId("A1", eventId);
 
-        String purchaseId = purchaseFacade.create(login, eventId, null, "A1");
+        String purchaseId = purchaseFacade.create(email, eventId, null, "A1");
 
         assertNotNull(purchaseFacade.getById(purchaseId));
         assertEquals(eventId, purchaseFacade.getEventByPurchaseId(purchaseId));
-        assertEquals(login1, purchaseFacade.getUserLoginByPurchaseId(purchaseId));
+        assertEquals(email, purchaseFacade.getUserLoginByPurchaseId(purchaseId));
         assertNotNull(purchaseFacade.getTicketByPurchaseId(purchaseId));
         assertNull(purchaseFacade.getCardByPurchaseID(purchaseId));
     }
@@ -112,13 +110,13 @@ public class PurchaseTest {
 
         assertNotNull(eventFacade.getById(eventId));
 
-        eventFacade.addSeatByEventId("A1", eventId);
+        //eventFacade.addSeatByEventId("A1", eventId);
 
         String purchaseId = purchaseFacade.create(email1, eventId, cardId, "A1");
 
         assertNotNull(purchaseFacade.getById(purchaseId));
         assertEquals(eventId, purchaseFacade.getEventByPurchaseId(purchaseId));
-        assertEquals(login1, purchaseFacade.getUserLoginByPurchaseId(purchaseId));
+        assertEquals(email1, purchaseFacade.getUserLoginByPurchaseId(purchaseId));
         assertNotNull(purchaseFacade.getTicketByPurchaseId(purchaseId));
         assertNotNull(purchaseFacade.getCardByPurchaseID(purchaseId));
     }
@@ -152,7 +150,7 @@ public class PurchaseTest {
 
         assertNotNull(eventFacade.getById(eventId));
 
-        eventFacade.addSeatByEventId("A1", eventId);
+        //eventFacade.addSeatByEventId("A1", eventId);
 
         String purchaseId = purchaseFacade.create(email1, eventId, null, "A1");
 
@@ -199,7 +197,7 @@ public class PurchaseTest {
 
         assertNotNull(eventFacade.getById(eventId));
 
-        eventFacade.addSeatByEventId("A1", eventId);
+        //eventFacade.addSeatByEventId("A1", eventId);
 
         String purchaseId = purchaseFacade.create(email1, eventId, cardId, "A1");
 
@@ -208,5 +206,3 @@ public class PurchaseTest {
         assertEquals(1, purchaseFacade.getUserMailBoxByPurchaseId(purchaseId));
     }
 }
-
- */

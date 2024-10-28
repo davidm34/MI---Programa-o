@@ -39,17 +39,29 @@ public class CompraManager {
     }
 
     public void limparArquivoJson() throws IOException {
-        FileWriter fileWriter = new FileWriter("compras.json");
-        fileWriter.write("[]");
-        fileWriter.flush();
-        fileWriter.close();
-        listacompra.clear();
+        try (FileWriter fileWriter = new FileWriter("compras.json")) {
+            fileWriter.write("[]"); // Escreve uma lista vazia no arquivo
+        }
+
+        if (listacompra == null) {
+            listacompra = new ArrayList<>(); // Inicializa a lista se estiver nula
+        }
+        listacompra.clear(); // Limpa a lista
     }
 
-    public void salvarCompras(List<Compra> compras) throws IOException {
+    public void save(Compra compra) throws IOException {
+        // Verifica e inicializa `listaevento` caso esteja nulo
+        if (listacompra == null) {
+            listacompra = lerConteudoArquivo();
+        }
+
+        // Atualiza lista, removendo eventos duplicados antes de adicionar o novo
+        listacompra.removeIf(t -> t.getIdCompra().equals(compra.getIdCompra()));
+        listacompra.add(compra);
+
+        // Serializa e salva a lista de eventos no arquivo JSON
         try (FileWriter fileWriter = new FileWriter("compras.json")) {
-            String jsonCompras = new Gson().toJson(compras);
-            fileWriter.write(jsonCompras);
+            new Gson().toJson(listacompra, fileWriter);
         }
     }
 }
