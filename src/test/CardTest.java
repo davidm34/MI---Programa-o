@@ -40,7 +40,6 @@ public class CardTest {
         Boolean isAdmin = false;
 
         userFacade.create(login, password, nameUser, cpf, email, isAdmin);
-
         String id = cardFacade.create(email, cardNumber, expiryDate, cvv);
         assertNotNull(cardFacade.getById(id));
         assertEquals("john souza", cardFacade.getUserNameByCardId(id));
@@ -112,7 +111,7 @@ public class CardTest {
         String id1 = cardFacade.create(email, cardNumber, expiryDate, cvv);
         assertNotNull(cardFacade.getById(id1));
 
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+        Exception exception = assertThrows(SecurityException.class, () -> {
             cardFacade.create(email, cardNumber, expiryDate, cvv);
         });
 

@@ -2,6 +2,7 @@ import vendaingressos.*;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class CardTestFacade {
 
@@ -13,31 +14,40 @@ public class CardTestFacade {
     public String create(String userEmail, String cardNumber, Date expiryDate, int cvv) throws IOException {
         CardManager cardManager = new CardManager();
         List<Card> cards = cardManager.lerConteudoArquivo();
-        for(Card card1 : cards){
-           if(card1.getNumerodoCartao().equals(cardNumber)){
-               throw new SecurityException("Cartão com este número já existe.");
-           }
-           else {
-               UsuarioManager usuarioManager = new UsuarioManager();
-               List<Usuario> usuarios = usuarioManager.lerConteudoArquivo();
-               for (Usuario usuario : usuarios) {
-                   if (usuario.getEmail().equals(userEmail)) {
-                       Card card = new Card(usuario.getId(), usuario.getNome(),cardNumber, expiryDate, cvv);
-                       cardManager.adicionarCardNoArquivo(card);
-                       return usuario.getId();
-                   }
-               }
-               return null;
-           }
+
+        // Verifica se já existe um cartão com o mesmo número
+        for (Card card : cards) {
+            if (card.getNumerodoCartao().equals(cardNumber)) {
+                throw new SecurityException("Cartão com este número já existe.");
+            }
         }
-        return null;
+
+        // Verifica se o usuário existe
+        UsuarioManager usuarioManager = new UsuarioManager();
+        List<Usuario> usuarios = usuarioManager.lerConteudoArquivo();
+        Usuario usuario = usuarios.stream()
+                .filter(u -> u.getEmail().equals(userEmail))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado."));
+
+        // Cria um novo cartão com um ID único
+        String cardId = UUID.randomUUID().toString();
+        Card card = new Card(cardId, usuario.getId(), usuario.getNome(), cardNumber, expiryDate, cvv);
+        cards.add(card);
+
+        // Salva a lista atualizada de cartões no arquivo
+        cardManager.salvarCardsNoArquivo(cards);
+
+        return cardId;
     }
+
+
 
     public String getUserNameByCardId(String cardId) throws IOException {
         CardManager cardManager = new CardManager();
         List<Card> cards = cardManager.lerConteudoArquivo();
         for (Card card : cards) {
-            if (card.getIdUsuario().equals(cardId)) {
+            if (card.getIdCartao().equals(cardId)) {
                 return card.getNomedoCartao();
             }
         }
@@ -48,7 +58,7 @@ public class CardTestFacade {
         CardManager cardManager = new CardManager();
         List<Card> cards = cardManager.lerConteudoArquivo();
         for (Card card : cards) {
-            if (card.getIdUsuario().equals(cardId)) {
+            if (card.getIdCartao().equals(cardId)) {
                 return card.getNumerodoCartao();
             }
         }
@@ -59,7 +69,7 @@ public class CardTestFacade {
         CardManager cardManager = new CardManager();
         List<Card> cards = cardManager.lerConteudoArquivo();
         for (Card card : cards) {
-            if (card.getIdUsuario().equals(cardId)) {
+            if (card.getIdCartao().equals(cardId)) {
                 return card.getValidade().getYear();
             }
         }
@@ -70,7 +80,7 @@ public class CardTestFacade {
         CardManager cardManager = new CardManager();
         List<Card> cards = cardManager.lerConteudoArquivo();
         for (Card card : cards) {
-            if (card.getIdUsuario().equals(cardId)) {
+            if (card.getIdCartao().equals(cardId)) {
                 return card.getValidade().getMonth();
             }
         }
@@ -81,7 +91,7 @@ public class CardTestFacade {
         CardManager cardManager = new CardManager();
         List<Card> cards = cardManager.lerConteudoArquivo();
         for (Card card : cards) {
-            if (card.getIdUsuario().equals(cardId)) {
+            if (card.getIdCartao().equals(cardId)) {
                 return card.getValidade().getDay();
             }
         }
@@ -89,33 +99,36 @@ public class CardTestFacade {
     }
 
     public void disable(String cardId) throws IOException {
-        CardManager cardManager = new CardManager();
-        List<Card> cards = cardManager.lerConteudoArquivo();
-        cards.removeIf(card -> card.getIdUsuario().equals(cardId));
+        delete(cardId);
     }
 
     public boolean getStatusByCardId(String cardId) throws IOException {
         CardManager cardManager = new CardManager();
         List<Card> cards = cardManager.lerConteudoArquivo();
         for (Card card : cards) {
-            if (card.getIdUsuario().equals(cardId)) {
+            if (card.getIdCartao().equals(cardId)) {
                 return true;
             }
         }
         return false;
     }
 
-    public void delete(String cardId) throws IOException {
+    public void delete(String c1Id) throws IOException {
         CardManager cardManager = new CardManager();
         List<Card> cards = cardManager.lerConteudoArquivo();
-        cards.removeIf(card -> card.getIdUsuario().equals(cardId));
+
+        // Remover a avaliação da lista com base no ID fornecido
+        cards.removeIf(card -> card.getIdCartao().equals(c1Id));
+
+        // Salvar a lista atualizada no arquivo JSON
+        cardManager.salvarCardsNoArquivo(cards);
     }
 
     public Card getById(String id) throws IOException {
         CardManager cardManager = new CardManager();
         List<Card> cards = cardManager.lerConteudoArquivo();
         for (Card card : cards) {
-            if (card.getIdUsuario().equals(id)) {
+            if (card.getIdCartao().equals(id)) {
                 return card;
             }
         }

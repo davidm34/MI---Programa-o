@@ -39,10 +39,20 @@ public class CardManager {
     }
 
     public void limparArquivoJson() throws IOException {
-        FileWriter fileWriter = new FileWriter("cards.json");
-        fileWriter.write("[]");
-        fileWriter.flush();
-        fileWriter.close();
-        listacard.clear();
+        try (FileWriter fileWriter = new FileWriter("cards.json")) {
+            fileWriter.write("[]"); // Escreve uma lista vazia no arquivo
+        }
+
+        if (listacard == null) {
+            listacard = new ArrayList<>(); // Inicializa a lista se estiver nula
+        }
+        listacard.clear(); // Limpa a lista
     }
+
+    public void salvarCardsNoArquivo(List<Card> cards) throws IOException {
+        try (FileWriter fileWriter = new FileWriter("cards.json")) {
+            new Gson().toJson(cards, fileWriter);
+        }
+    }
+
 }
