@@ -61,8 +61,6 @@ public class PurchaseTest {
 
         assertNotNull(eventFacade.getById(eventId));
 
-        //eventFacade.addSeatByEventId("A1", eventId);
-
         String purchaseId = purchaseFacade.create(email, eventId, null, "A1");
 
         assertNotNull(purchaseFacade.getById(purchaseId));
@@ -110,8 +108,6 @@ public class PurchaseTest {
 
         assertNotNull(eventFacade.getById(eventId));
 
-        //eventFacade.addSeatByEventId("A1", eventId);
-
         String purchaseId = purchaseFacade.create(email1, eventId, cardId, "A1");
 
         assertNotNull(purchaseFacade.getById(purchaseId));
@@ -149,8 +145,6 @@ public class PurchaseTest {
         String eventId = eventFacade.create(login, name, description, date);
 
         assertNotNull(eventFacade.getById(eventId));
-
-        //eventFacade.addSeatByEventId("A1", eventId);
 
         String purchaseId = purchaseFacade.create(email1, eventId, null, "A1");
 
@@ -196,8 +190,6 @@ public class PurchaseTest {
         String eventId = eventFacade.create(login, name, description, date);
 
         assertNotNull(eventFacade.getById(eventId));
-
-        //eventFacade.addSeatByEventId("A1", eventId);
 
         String purchaseId = purchaseFacade.create(email1, eventId, cardId, "A1");
 
